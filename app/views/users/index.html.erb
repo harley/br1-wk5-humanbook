@@ -1,3 +1,5 @@
+<%= current_user.email %>
+
 <table class="table">
   <tbody>
     <% User.all.each do |user| %>
@@ -5,7 +7,23 @@
         <td><%= image_tag user.image_url_or_default %></td>
         <td><%= user.name %></td>
         <td><%= user.email %></td>
+         <td> 
+          <% if @current_user.is_friend?(user) %>
+            <%= form_tag remove_friend_path  do %>
+                <%= hidden_field_tag :friend_id, user.id %>
+                <%= submit_tag 'Remove', class:"btn button-primary"%>
+              <% end %>
+            <% else %>
+              <%= form_for Friendship.new do |f|%>
+                <%= f.hidden_field :friend_id, value: user.id %>
+                <%= f.submit 'add', class:"btn button-primary"%>
+              <% end %>
+           <% end %>
+        </td>
+        
       </tr>
     <% end %>
   </tbody>
 </table>
+
+

@@ -15,4 +15,13 @@ class ApplicationController < ActionController::Base
   def current_user
     @current_user ||= User.find_by(id: session[:user_id])
   end
+
+  def require_login
+    if current_user == nil
+      flash[:error] = "Access denied , Please login.."
+      redirect_to root_path
+     else 
+    end
+  end   
+
 end
