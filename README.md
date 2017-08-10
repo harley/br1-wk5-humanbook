@@ -11,7 +11,7 @@ A Facebook clone for the Bootcamp Ruby class.
 - [x] User can update profile information (name, email, image)
 - [ ] User can add another User as friend
 - [ ] User can send a message to a friend
-
+- [ ] Restrict sending messages to friends only
 
 ## Optional features
 

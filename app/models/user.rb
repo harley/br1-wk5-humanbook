@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   has_many :friendships, dependent: :destroy
   has_many :friends, through: :friendships
+  has_many :sent_messages, class_name: "Message", foreign_key: "sender_id"
+  has_many :received_messages, class_name: "Message", foreign_key: "recipient_id"
 
   # me ==> friendships
   # friendship ==> friend
@@ -67,5 +69,15 @@ class User < ApplicationRecord
 
   def friend_names
     friends.map{|e| e.name}
+  end
+
+  # Test: User.except(User.first)
+  def self.except(user)
+    where.not(id: user.id)
+  end
+
+  # Test: User.recipient_options(User.first)
+  def self.recipient_options(user)
+    except(user).map{|e| [e.name, e.id]}
   end
 end
